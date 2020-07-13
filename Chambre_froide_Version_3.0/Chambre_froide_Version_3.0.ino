@@ -43,7 +43,6 @@ char pass[] = "ZTEGC8538fa3";
 int TempTarget0; // preset temperature. 
 int TempTarget1; // preset temperature. 
 int TempTarget2; // preset temperature. 
-int TempTarget3; // preset temperature. 
 
 // Ajout (Dubuc Valentin) - Variables des timers des chambres et des portes
 
@@ -54,18 +53,11 @@ int TimeTarget2; // preset Timer 3
 int pmints_0; // preset Timer Porte 1
 int pmints_1; // preset Timer Porte 2
 int pmints_2; // preset Timer Porte 3
-int pmints_3; // preset Timer Porte 4
 
 // Fin Ajout
 
 SimpleTimer timer;
-/*
-SimpleTimer timer1;
-SimpleTimer timer2;
-SimpleTimer timer3;
-SimpleTimer timer4;
-SimpleTimer timer5;
-*/
+
  
 #define ONE_WIRE_BUS 4 // DS18B20 on arduino pin2 corresponds to D4 on physical board "D4 pin on the ndoemcu Module"
 OneWire oneWire(ONE_WIRE_BUS);
@@ -304,15 +296,6 @@ void loop()
   // Chambre3();
 
   timer.run(); // Initiates SimpleTimer T°
-/*  timer1.run(); // Initiates SimpleTimer T°
-  timer2.run(); // Initiates SimpleTimer PORTE 1
-  timer3.run(); // Initiates SimpleTimer PORTE 2
-  timer4.run(); // Initiates SimpleTimer PORTE 3
-  timer5.run(); // Initiates SimpleTimer PORTE 4 
-  timer6.run();
-  timer7.run();
-  timer8.run()
-  */
   Blynk.run();
 }
  void UpdateBlynk()
@@ -449,98 +432,7 @@ void getSendData()
   Blynk.virtualWrite(30, pmints_2/60);//CURSEUR Timer Porte 3
   Blynk.virtualWrite(31, pmints_3/60);//CURSEUR Timer Porte 4
  // Fin Ajout
-
-/*
- 
-  // Ajout (Valentin Dubuc) du passage à tempf = 1 pour la chambre 01
-if ( (temp_0 > TempTarget0) && (tempf_0 == 0))
-  {
-   // Blynk.notify("Température trop élevée 01 !!!");
-    tempf_0 = 1;
-  }
-  // Fin de l'Ajout (Dubuc Valentin)
-  
-  if ( (temp_0 < TempTarget0) && (tempf_0 == 1))
-  //si température sonde 0 est inférieur ou égale a la valeur indiquée par le potard
-  {
-    //Blynk.notify("Température revenue à la normal 01");
-    tempf_0 = 0;
-
-    // Modification - (Dubuc Valentin) - comme la température est redescendu, on réinitialise le Timer des chambres
-  c_secs_0 = 0; 
-  c_mints_0 = 0;
-    // Fin de la modification
- }
- 
-if ( (temp_1 > TempTarget1) && (tempf_1 == 0))
-  {
-   // Blynk.notify("Température trop élevée 02 !!!");
-    tempf_1 = 1;
-  }
-
-  if ( (temp_1 < TempTarget1) && (tempf_1 == 1))
-  {
-   // Blynk.notify("Température revenue à la normal 02");
-    tempf_1 = 0;
-
-    // Modification - (Dubuc Valentin) - comme la température est redescendu, on réinitialise le Timer des chambres
-  c_secs_1 = 0; 
-  c_mints_1 = 0;
-    // Fin de la modification
-  }
-  
-if ( (temp_2 >TempTarget2) && (tempf_2 == 0))
-  {
-   // Blynk.notify("Température trop élevée 03 !!!");
-    tempf_2 = 1;
-  }
-
-  if ( (temp_2 < TempTarget2) && (tempf_2 == 1))
-  {
-   // Blynk.notify("Température revenue à la normal 03");
-    tempf_2 = 0;
-
-    // Modification - (Dubuc Valentin) - comme la température est redescendu, on réinitialise le Timer des chambres
-  c_secs_2 = 0; 
-  c_mints_2 = 0;
-    // Fin de la modification
-  }
-  
-  if ( (temp_3 > TempTarget3) && (tempf_3 == 0))
-  {
-  //  Blynk.notify("Température trop élevée 04 !!!");
-    tempf_3 = 1;
-  }
-
-  if ( (temp_3 < TempTarget3) && (tempf_3 == 1))
-  {
-   // Blynk.notify("Température revenue à la normal 04");
-    tempf_3 = 0;
-
-    // Modification - (Dubuc Valentin) - comme la température est redescendu, on réinitialise le Timer
-  c_secs_3 = 0; 
-  c_mints_3 = 0;
-    // Fin de la modification
-     }
-
-
-  if ( (temp_0,temp_1,temp_2,temp_3> TempTarget0) && (tempf == 0))
-  {
-   // Blynk.notify("CHAUD  !!!");
-    tempf = 1;
-  }
-
-  if ( (temp_0,temp_1,temp_2,temp_3 <= TempTarget0) && (tempf == 1))
-  {
-  //  Blynk.notify("NORMAL ");
-    tempf = 0; 
-  }
-
-*/
-
-  
 }
-
 
 //  ---------- Vérification des Chambres ------------ //
     
@@ -803,51 +695,5 @@ if(secs_2 >= pmints_2 )
  Blynk.virtualWrite(V18, "Seconds");
 Blynk.virtualWrite(V18, secs_2);   
 Blynk.virtualWrite(V18,"*********");
- 
-}
-
-void DoorSensor4()
-{
- 
- if(digitalRead(Dsensor4) == LOW)
- {
-  Blynk.virtualWrite(V19,0);
-  Blynk.virtualWrite(V20,255);
- 
-   secs_3 = 0; 
-   //mints_3 = 0; 
- }
- 
-  if(digitalRead(Dsensor4) == HIGH)
- {
-  Blynk.virtualWrite(V19,255);
-  Blynk.virtualWrite(V20,0);
-        currentMillis = millis();
-   currentsecs = currentMillis / 1000; 
-    if ((unsigned long)(currentsecs - previoussecs) >= interval) {
-      secs_3 = secs_3 + TempsReelSeconde; // Temps réel en seconde Arduino 
-// SUPPRESSION DU CONCEPT DE MINUTE
-    /*     
-      if (secs_3 >= 60 ) // Modification (Dubuc Valentin) - secs_0 >= 60, car une minute correspond à 60s et pas 10s  
-      {
-        secs_3 = 0; 
-   mints_3 = mints_3 + 1;  
-   */
-if(secs_3 >= pmints_3 )
-{
-  secs_3 = 0; 
-  //mints_3 = 0;
-  Blynk.notify("Porte N°4 ouverte depuis trop longtemps !!!");  
-}
- 
-      previoussecs = currentsecs;
-      }   
-   }
- 
- Blynk.virtualWrite(V21, "Seconds");
-Blynk.virtualWrite(V21, secs_3);  
-//Blynk.virtualWrite(V21, "Mints");
-//Blynk.virtualWrite(V21, mints_3); 
-Blynk.virtualWrite(V21,"*********");
  
 }
