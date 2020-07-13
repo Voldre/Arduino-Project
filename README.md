@@ -1,4 +1,4 @@
-# Arduino-Project
+# Arduino-Projects
 Liste de projet en Arduino réalisé avec mes élèves.
 
 Les projets ont été réalisé sur des cartes Arduino UNO, MEGA, ESP et NodeMCU.
