@@ -5,13 +5,13 @@ Les projets ont été réalisé sur des cartes Arduino UNO, MEGA, ESP et NodeMCU
 
 Ce repository contient actuellement 2 projets.
 
-## - Chambre Froide
+## Chambre Froide
 Le premier est celui d'une chambre froide contenant plusieurs salles.
   
 Le programme permet de savoir en temps réel la température de chaque chambre, ainsi que d'envoyer une alerte via Blynk à l'utilisateur si jamais la température d'une des chambres est trop élevé depuis une certaine durée.
 
 
-## - Affichage d'une série de capteur sur écran OLED (Organic Light-Emitting Diode) et sur application Blynk
+## Affichage d'une série de capteur sur écran OLED (Organic Light-Emitting Diode) et sur application Blynk
 
 Ce deuxième programme permet de lire la valeur de plusieurs capteurs et les affiches sur deux supports :
 
